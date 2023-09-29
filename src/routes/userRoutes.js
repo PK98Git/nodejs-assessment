@@ -1,11 +1,13 @@
 const express = require("express");
 
-const { createUser } = require("../controllers/userController");
+const { createUser, getUserById } = require("../controllers/userController");
 
 const router = express.Router();
 
-// Route to handle the creation of a new user
+// Routes to handle the CRUD Operations
 router.post("/", createUser);
+router.get("/:id", getUserById);
+
 
 
 module.exports = router;
