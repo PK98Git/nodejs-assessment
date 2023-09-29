@@ -1,11 +1,17 @@
-const express = require('express')
+const express = require("express");
+const connectDB = require("./config/db");
 
-const app = express()
+require("dotenv").config();
+const app = express();
 
-const port = 5000
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+const port = 5000;
 
-app.use(express.json())
+app.use(express.json());
 
-app.listen(port, () => {
-  console.log(`Server is up on port ` + port)
-})
+connectDB().then(() => {
+  app.listen(port, () => {
+    console.log(`Server is up on port ` + port);
+  });
+});
