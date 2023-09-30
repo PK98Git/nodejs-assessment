@@ -1,5 +1,5 @@
 const express = require("express");
-
+const { param } = require("express-validator");
 const {
   createUser,
   getUserById,
@@ -8,11 +8,18 @@ const {
 } = require("../controllers/userController");
 
 const router = express.Router();
+const {dataValidation} = require('../middleware/validatation')
 
 // Routes to handle the CRUD Operations
-router.post("/", createUser);
-router.get("/:id", getUserById);
-router.put("/:id",updateUser);
+router.post("/", dataValidation , createUser);
+router.get(
+  "/:id",
+  [
+    param("id").notEmpty().withMessage("Please provide a user ID"),
+  ],
+  getUserById
+);
+router.put("/:id", dataValidation, updateUser);
 router.delete("/:id",deleteUser);
 
 
